@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../../auth-session.provider";
 import LoginDialog from "../Login/Login";
@@ -15,6 +16,10 @@ import LoginDialog from "../Login/Login";
 export default function AppBar() {
   const navigate = useNavigate();
   const { isAuth, handleSignout } = useAuthSession();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   const goToHome = () => {
     navigate("/")
@@ -44,14 +49,15 @@ export default function AppBar() {
           <Box sx={{ flex: 1 }} />
         <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="right" alignItems="center">
           {isAuth() ? 
-            <Button variant="contained" onClick={handleLogout}>
+            (<Button variant="contained" onClick={handleLogout}>
               <Typography>
                 Logout
               </Typography>
-            </Button>
+            </Button>)
             : 
-            <>
-              <Button variant="contained" onClick={LoginDialog}>
+            (<>
+              <LoginDialog open = {openDialog} handleCloseDialog = {handleCloseDialog}/>
+              <Button variant="contained" onClick={handleOpenDialog}>
                 <Typography>
                   Login
                 </Typography>
@@ -61,7 +67,7 @@ export default function AppBar() {
                   Sign Up
                 </Typography>
               </Button>
-            </>
+            </>)
           }
         </Stack>
       </Toolbar>
