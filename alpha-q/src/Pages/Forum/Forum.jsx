@@ -10,6 +10,7 @@ export default function Forum() {
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
   const [posts, setPosts] = React.useState([]);
+  const [post, setPost] = React.useState([]);
 
   const eg = {
     title: "alpha q",
@@ -45,7 +46,7 @@ export default function Forum() {
         </Button>
       </Stack>
       <Stack width = "60%" spacing = {2} overflowY="scroll">
-        {posts.map(post => <ForumBox forumPost = {post}/>
+        {posts.map(post => <ForumBox forumPost = {post} setPost = {setPost}/>
         )}
       </Stack>
     </Stack>
