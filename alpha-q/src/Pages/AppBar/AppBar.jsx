@@ -25,6 +25,10 @@ export default function AppBar() {
     navigate("/")
   }
 
+  const goToForum = () => {
+    navigate("/forum")
+  }
+
   const goToSignup = () => {
     navigate("/signup");
   };
@@ -41,34 +45,48 @@ export default function AppBar() {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar>
-        <Button variant="contained" onClick={goToHome}>
-          <Typography>
-            Alpha Q
-          </Typography>
-        </Button>
-          <Box sx={{ flex: 1 }} />
-        <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="right" alignItems="center">
-          {isAuth() ? 
-            (<Button variant="contained" onClick={handleLogout}>
+        <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="space-between" alignItems="center">
+          <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="left" alignItems="center">
+            <Button variant="contained" onClick={goToHome}>
               <Typography>
-                Logout
+                Alpha Q
               </Typography>
-            </Button>)
-            : 
-            (<>
-              <LoginDialog open = {openDialog} handleCloseDialog = {handleCloseDialog}/>
-              <Button variant="contained" onClick={handleOpenDialog}>
-                <Typography>
-                  Login
-                </Typography>
-              </Button>
-              <Button variant="contained" onClick={goToSignup}>
-                <Typography>
-                  Sign Up
-                </Typography>
-              </Button>
-            </>)
-          }
+            </Button>
+            {isAuth() ? 
+              <>
+                <Button variant="contained" onClick={goToForum}>
+                  <Typography>
+                    Forum
+                  </Typography>
+                </Button>
+                  <Box sx={{ flex: 1 }} /> 
+              </>
+              : <></>
+            }
+          </Stack>
+          <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="right" alignItems="center">
+            {isAuth() ? 
+              (<Button variant="contained" onClick={handleLogout}>
+                  <Typography>
+                    Logout
+                  </Typography>
+                </Button>)
+              : 
+              (<>
+                <LoginDialog open = {openDialog} handleCloseDialog = {handleCloseDialog}/>
+                <Button variant="contained" onClick={handleOpenDialog}>
+                  <Typography>
+                    Login
+                  </Typography>
+                </Button>
+                <Button variant="contained" onClick={goToSignup}>
+                  <Typography>
+                    Sign Up
+                  </Typography>
+                </Button>
+              </>)
+            }
+          </Stack>
         </Stack>
       </Toolbar>
     </MuiAppBar>
