@@ -22,5 +22,3 @@ const UploadAndDisplayImage = ({selectedImage, setSelectedImage}) => {
     </>
   );
 };
-
-}
