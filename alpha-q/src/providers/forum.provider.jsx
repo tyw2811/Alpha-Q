@@ -22,23 +22,40 @@ function ForumProvider({ children }) {
   const { isAuth } = useAuthSession();
   const [loading, setLoading] = useState(false);
  
-  const postToForum = async (title, body, area, user_id) => {
-    try {
-      const { status } = await supabase
-        .from('posts')
-        .insert([{ 
-          title: title,
-          body: body,
-          area: area,
-          user_id: user_id,
-        }], { returning: 'minimal' })
-        if (status !== 200) {
-          throw new Error("Unable to post to forum");
-        }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const postToForum =  useCallback(async (input) => {
+  //   try {
+  //     const { data, status } = await supabase
+  //           .from('posts')
+  //           .insert({ 
+  //               title: input.title,
+  //               body: input.body,
+  //               area: input.area,
+  //               user_id: input.user_id,
+  //           }, { returning: "minimal" });
+  //       console.log(data);
+  //       if (status !== 200) {
+  //         throw new Error("Unable to post to forum");
+  //       }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, []);
+
+  const postToForum = useCallback(async (input) => {
+    console.log(input);
+    const { data, error } = await supabase
+      .from("posts")
+      .insert({
+        title: input.title,
+        body: input.body,
+        area: input.area,
+        user_id: input.user_id,
+      })
+      .single();
+    if (error) throw error;
+
+    return true;
+  }, []);
 
   const values = {
     postToForum,

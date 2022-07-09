@@ -29,9 +29,9 @@ function AuthSessionProvider({ children }) {
 
   const isAuth = useCallback(() => aud, [aud]);
 
-  const getUser = useCallback(async () => {
-    return user;
-  }, []);
+  const getUserId = useCallback(async () => {
+    return user.id;
+  }, [user]);
 
   const handleSignup = async ({ username, email, password }) => {
     const { error } = await supabase.auth.signUp(
@@ -67,6 +67,82 @@ function AuthSessionProvider({ children }) {
     });
   }, []);
 
+  const getProfile = useCallback(async (userId) => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", userId)
+      .single();
+    if (error) {
+      console.error("getProfile", error);
+      return null;
+    }
+
+    const result = {
+      username: data.username,
+      avatarUrl: data.avatar_url,
+    }
+
+    return result;
+  }, []);
+
+  const createProfile = useCallback(async (userId, username) => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .insert({
+        id: userId,
+        username,
+      })
+      .single();
+    if (error) throw error;
+
+    const result = {
+      username: data.username,
+      avatarUrl: data.avatar_url,
+    }
+    return result;
+  }, []);
+
+  const postToForum = useCallback(async (input) => {
+    console.log(input);
+    const { data, error } = await supabase
+      .from("posts")
+      .insert({
+        title: input.title,
+        body: input.body,
+        area: input.area,
+        user_id: user.id,
+        telegram: user.user_metadata.username
+      })
+      .single();
+    if (error) throw error;
+
+    return true;
+  }, []);
+
+  useEffect(() => {
+    async function init() {
+      if (user) {
+        setLoading(true);
+
+        let userProfile = await getProfile(user.id);
+        if (!userProfile) {
+          userProfile = await createProfile(
+            user.id,
+            user.user_metadata.username
+          );
+        }
+        setProfile(userProfile);
+        setLoading(false);
+      } else {
+        setProfile(null);
+        setLoading(false);
+      }
+    }
+
+    init();
+  }, [user, createProfile, getProfile]);
+
   const value = {
     loading,
     profile,
@@ -74,7 +150,8 @@ function AuthSessionProvider({ children }) {
     handleSignup,
     handleSignin,
     handleSignout,
-    getUser,
+    getUserId,
+    postToForum,
   };
 
   return (

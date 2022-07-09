@@ -1,19 +1,8 @@
 import * as React from 'react';
-import { Card, CardActionArea, CardContent, Dialog, Skeleton, Typography, IconButton, Stack } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import { Card, CardContent, Typography } from "@mui/material";
 
 export default function ForumBox(props) {
-  const { forumPost, index} = props;
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { forumPost } = props;
   return (
     <Card>
       <CardContent sx={{ position: "relative", width: 340, height: 90 }}>

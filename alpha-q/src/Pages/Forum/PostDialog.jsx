@@ -16,13 +16,11 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { useAuthSession } from "../../providers/auth-session.provider";
-import { useForum } from "../../providers/forum.provider";
 import Select from '../Map/Select'
 
 
 export default function PostDialog({ open, handleCloseDialog }) {
-  const { handleSignin, getUser } = useAuthSession();
-  const { postToForum } = useForum();
+  const { handleSignin, postToForum } = useAuthSession();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -59,7 +57,6 @@ export default function PostDialog({ open, handleCloseDialog }) {
         title: data.get("title"),
         body: data.get("body"),
         area: location,
-        user_id: getUser().id
       });
       handleCloseReset();
     } catch (error) {
