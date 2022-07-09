@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../../auth-session.provider";
+import LoginDialog from "../Login/Login";
+
 
 
 export default function AppBar() {
@@ -17,10 +19,6 @@ export default function AppBar() {
   const goToHome = () => {
     navigate("/")
   }
-
-  const goToLogin = () => {
-    navigate("/login");
-  };
 
   const goToSignup = () => {
     navigate("/signup");
@@ -53,7 +51,7 @@ export default function AppBar() {
             </Button>
             : 
             <>
-              <Button variant="contained" onClick={goToLogin}>
+              <Button variant="contained" onClick={LoginDialog}>
                 <Typography>
                   Login
                 </Typography>

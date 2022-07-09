@@ -18,7 +18,7 @@ export default function AppTitle() {
             noWrap
             sx={{ fontWeight: "bold" }}
           >
-            NUSMODDED
+            Alpha Q
           </Typography>
         </Button>
       )}
