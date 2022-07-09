@@ -91,7 +91,7 @@ export default function SignUp() {
               required
               fullWidth
               id="username"
-              label="Telegram Handle"
+              label="Telegram Handle (without the '@')"
               autoFocus
             />
           </Grid>
