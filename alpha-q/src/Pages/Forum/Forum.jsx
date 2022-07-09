@@ -12,6 +12,7 @@ export default function Forum() {
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
   const [posts, setPosts] = React.useState([]);
+  const [post, setPost] = React.useState([]);
 
   const eg = {
     title: "alpha q",

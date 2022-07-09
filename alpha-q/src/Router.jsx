@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { pages } from "./Pages";
+import PostPage from "./Pages/Forum/PostPage";
 
 /**
  * A router component for page navigation.
@@ -17,6 +18,7 @@ export default function Router() {
         }
         return null;
       })}
+      <Route path="/forum/posts/:id" element={<PostPage />} />
     </Routes>
   );
 }
