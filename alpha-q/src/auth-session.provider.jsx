@@ -59,13 +59,7 @@ function AuthSessionProvider({ children }) {
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session) => {
       setAuthEvent(event);
-
-      switch (event) {
-        case "USER_UPDATED":
-          setUser(supabase.auth.user());
-          break;
-        default:
-      }
+      setUser(supabase.auth.user());
     });
   }, []);
 

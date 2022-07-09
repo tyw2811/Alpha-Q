@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Stack from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { Stack, Button, Typography } from  "@mui/material";
 import ForumBox from './ForumBox';
 
 export default function Forum() {
@@ -14,9 +13,21 @@ export default function Forum() {
   }
 
   return (
-    <Stack spacing = "2">
-      <ForumBox forumPost = {eg}/>
-      <ForumBox forumPost = {eg}/>
+    <Stack
+      width="100%"
+      direction="row"
+      justifyContent="center"
+      spacing = {4}
+    >
+      <Stack>
+        <Button variant="contained">
+          <Typography>Post</Typography>
+        </Button>
+      </Stack>
+      <Stack width = "60%" spacing = {2}>
+        <ForumBox forumPost = {eg}/>
+        <ForumBox forumPost = {eg}/>
+      </Stack>
     </Stack>
   );
 }
