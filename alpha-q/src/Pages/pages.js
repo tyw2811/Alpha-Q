@@ -3,6 +3,7 @@ import Forum from "./Forum";
 import SignUp from "./SignUp";
 import Map from "./Map";
 import Login from "./Login";
+import ImageUpload from "./ImageUpload";
 
 const pages = [
   {
@@ -29,6 +30,11 @@ const pages = [
     key: "login",
     path: "/login",
     content: <Login />,
+  },
+  {
+    key: "imageupload",
+    path: "/imageupload",
+    content: <ImageUpload />,
   },
 ];
 
