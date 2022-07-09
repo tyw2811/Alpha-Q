@@ -1,30 +1,25 @@
+import { Typography, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-const UploadAndDisplayImage = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+const UploadAndDisplayImage = ({selectedImage, setSelectedImage}) => {
 
   return (
-    <div>
-      <h1>Upload and Display Image usign React Hook's</h1>
+    <>
       {selectedImage && (
-        <div>
         <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-        <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
-        </div>
       )}
-      <br />
-     
-      <br /> 
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      />
-    </div>
+      <Typography>Upload image!</Typography>
+      <Stack direction = "row" spacing = {1}>
+        {selectedImage ? <button onClick={()=>setSelectedImage(null)}>Remove</button> : <></>}
+        <input
+          type="file"
+          name="myImage"
+          onChange={(event) => {
+            setSelectedImage(event.target.files[0]);
+          }}
+        />
+      </Stack>
+    </>
   );
 };
 

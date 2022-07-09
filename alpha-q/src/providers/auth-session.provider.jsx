@@ -119,15 +119,14 @@ function AuthSessionProvider({ children }) {
     return true;
   }, []);
 
-  const uploadImage = useCallback(async (image) => {
+  const uploadImage = useCallback(async (name, image) => {
     const { data, error } = await supabase
       .storage
       .from("post-images")
-      .upload('public/avatar1.png', image, {
+      .upload(name + "-" + user.user_metadata.username, image, {
         cacheControl: '3600',
         upsert: false
-      })
-      .single();
+      });
     if (error) throw error;
 
     return true;
