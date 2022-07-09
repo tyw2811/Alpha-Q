@@ -66,7 +66,7 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Stack display="flex" flex="1" width="3" justifyContent="left" >
+              <Stack display="flex" flex="1" width="7%" justifyContent="left">
                 <DisableElevation></DisableElevation>
                 <Typography variant="h6" gutterBottom component="div">
                   Pictures
