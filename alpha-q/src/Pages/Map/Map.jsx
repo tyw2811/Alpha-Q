@@ -51,13 +51,9 @@ function Row(props) {
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
+          <Stack display="flex" flex="1" width="50%" justifyContent="left">
+            <DisableElevation post = {post}/>
+          </Stack>
         </TableCell>
         <TableCell component="th" scope="row">
           {post.title}
@@ -69,12 +65,6 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Stack display="flex" flex="1" width="7%" justifyContent="left">
-                <DisableElevation post = {post}/>
-                <Typography variant="h6" gutterBottom component="div">
-                  Pictures
-                </Typography>
-              </Stack>
             </Box>
           </Collapse>
         </TableCell>
