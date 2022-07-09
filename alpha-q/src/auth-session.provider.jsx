@@ -24,7 +24,7 @@ function AuthSessionProvider({ children }) {
 
   useEffect(() => {
     const newAud = !!user;
-    if (newAud !== aud) setAud(newAud);
+    setAud(newAud);
   }, [aud, user]);
 
   const isAuth = useCallback(() => aud, [aud]);
@@ -45,7 +45,11 @@ function AuthSessionProvider({ children }) {
       email,
       password,
     });
-    if (error) throw error;
+    if (error) {
+      throw error;
+    } else {
+      setAud(true);
+    }
   };
 
   const handleSignout = useCallback(async () => {
@@ -53,16 +57,17 @@ function AuthSessionProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    switch (authEvent) {
-      case "SIGNED_IN":
-        console.log("signed in");
-        break;
-      case "SIGNED_OUT":
-        console.log("signed out");
-        break;
-      default:
-    }
-  }, [authEvent]);
+    supabase.auth.onAuthStateChange((event, session) => {
+      setAuthEvent(event);
+
+      switch (event) {
+        case "USER_UPDATED":
+          setUser(supabase.auth.user());
+          break;
+        default:
+      }
+    });
+  }, []);
 
   const value = {
     loading,
