@@ -29,6 +29,10 @@ export default function AppBar() {
     navigate("/forum")
   }
 
+  const goToMap = () => {
+    navigate("/map")
+  }
+
   const goToSignup = () => {
     navigate("/signup");
   };
@@ -49,7 +53,7 @@ export default function AppBar() {
           <Stack direction="row" spacing={1} display="flex" flex="1" justifyContent="left" alignItems="center">
             <Button variant="contained" onClick={goToHome}>
               <Typography>
-                Alpha Q
+                Home
               </Typography>
             </Button>
             {isAuth() ? 
@@ -57,6 +61,11 @@ export default function AppBar() {
                 <Button variant="contained" onClick={goToForum}>
                   <Typography>
                     Forum
+                  </Typography>
+                </Button>
+                <Button variant="contained" onClick={goToMap}>
+                  <Typography>
+                    Map
                   </Typography>
                 </Button>
                   <Box sx={{ flex: 1 }} /> 
