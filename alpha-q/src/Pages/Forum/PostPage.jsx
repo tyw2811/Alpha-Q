@@ -45,18 +45,21 @@ export default function PostPage(props) {
     <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
       <Paper variant = "outlined" height = "100px">
         <Typography variant="h6">
-          By: {post.telegram}
+          Author: @{post.telegram}
         </Typography>
       </Paper>
-      <Stack justifyContent = "top" width = "30%">
-        <Paper variant = "outlined" spacing = {4} alignItems= "center">
-          <Typography variant="h4">
+      <Stack justifyContent = "top" width = "30%" spacing = {4}>
+          <Typography variant="h3">
             {post.title}
           </Typography>
-          <Typography variant="h5">
-            {post.body}
-          </Typography>
-        </Paper>
+          <Stack spacing = {0.5}>
+            <Typography variant="h5">
+              Description:
+            </Typography>
+            <Typography variant="h6">
+              {post.body}
+            </Typography>
+          </Stack>
       </Stack>
     </Stack>  
     : <></>}

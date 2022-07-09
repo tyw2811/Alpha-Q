@@ -12,7 +12,7 @@ function App() {
     <ForumProvider>
       <AuthSessionProvider>
         <BrowserRouter>
-          <Box sx={{ display: "flex" }} bgcolor="background.paper">
+          <Box sx={{ display: "flex" }} bgcolor="green">
             <CssBaseline />
             <AppBar/>
             <MainFrame>
