@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Stack, Button, Typography } from  "@mui/material";
+import { Stack, Button, Typography, Grid } from  "@mui/material";
 import ForumBox from './ForumBox';
 import PostDialog from './PostDialog';
 import {supabase} from "../../services/supabase.client";
+import { Container } from '@mui/system';
+import Divider from '@mui/material/Divider';
 
 export default function Forum() {
 
@@ -10,6 +12,7 @@ export default function Forum() {
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
   const [posts, setPosts] = React.useState([]);
+  const [post, setPost] = React.useState([]);
 
   const eg = {
     title: "alpha q",
@@ -34,7 +37,7 @@ export default function Forum() {
   return (
     <Stack
       width="100%"
-      direction="row"
+      direction = "row"
       justifyContent="center"
       spacing = {4}
     >
@@ -44,9 +47,11 @@ export default function Forum() {
           <Typography>Post</Typography>
         </Button>
       </Stack>
-      <Stack width = "60%" spacing = {2} overflowY="scroll">
-        {posts.map(post => <ForumBox forumPost = {post}/>
-        )}
+      <Stack width = "60%">
+        <Stack spacing = {2}>
+          {posts.map(post => <ForumBox forumPost = {post} setPost = {setPost}/>
+          )}
+        </Stack>
       </Stack>
     </Stack>
   );
