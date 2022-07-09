@@ -2,7 +2,6 @@ import Landing from "./Landing";
 import Forum from "./Forum";
 import SignUp from "./SignUp";
 import Map from "./Map";
-
 import Login from "./Login";
 
 const pages = [
