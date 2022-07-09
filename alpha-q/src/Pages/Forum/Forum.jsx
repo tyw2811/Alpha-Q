@@ -49,7 +49,7 @@ export default function Forum() {
       </Stack>
       <Stack width = "60%">
         <Stack spacing = {2}>
-          {posts.map(post => <ForumBox forumPost = {post}/>
+          {posts.map(post => <ForumBox forumPost = {post} setPost = {setPost}/>
           )}
         </Stack>
       </Stack>
