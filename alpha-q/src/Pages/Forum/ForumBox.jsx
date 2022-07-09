@@ -10,11 +10,11 @@ export default function ForumBox(props) {
 
   return (
     <Card onClick={handleOpenPost}>
-      <CardContent sx={{ position: "relative", width: 340, height: 90 }}>
-        <Typography variant="body2" position='relative' bottom='22%'>
+      <CardContent sx={{ position: "relative", height: 90 }}>
+        <Typography variant="body2" noWrap position='relative' bottom='22%'>
           {forumPost.title}
         </Typography>
-        <Typography variant="h6" position='relative' bottom='26%'>
+        <Typography variant="h6" noWrap position='relative' bottom='26%'>
           {forumPost.body}
         </Typography>
         <Typography variant="caption" position='relative' bottom='20%' noWrap >
