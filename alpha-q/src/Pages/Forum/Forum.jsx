@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { Stack, Button, Typography } from  "@mui/material";
 import ForumBox from './ForumBox';
+import PostDialog from './PostDialog';
 
 export default function Forum() {
+
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   const eg = {
     title: "alpha q",
@@ -20,7 +25,8 @@ export default function Forum() {
       spacing = {4}
     >
       <Stack>
-        <Button variant="contained">
+        <PostDialog open = {openDialog} handleCloseDialog = {handleCloseDialog} />
+        <Button variant="contained" onClick = {handleOpenDialog}>
           <Typography>Post</Typography>
         </Button>
       </Stack>

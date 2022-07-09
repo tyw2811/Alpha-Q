@@ -8,43 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography, Stack } from '@mui/material';
 import GoogleMap from './GoogleMap'
-
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-
-
-
-
-function BasicSelect({location, setLocation}) {
-
-  const handleChange = (event) => {
-    setLocation(event.target.value);
-  };
-
-  return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Locations</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={location}
-          label="Location"
-          onChange={handleChange}
-        >
-          <MenuItem value={"Bishan"}>Bishan</MenuItem>
-          <MenuItem value={"Hougang"}>Hougang</MenuItem>
-          <MenuItem value={"Punggol"}>Punggol</MenuItem>
-          <MenuItem value={"Redhill"}>Redhill</MenuItem>
-
-        </Select>
-      </FormControl>
-    </Box>
-  );
-}
+import Select from './Select'
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -61,10 +25,13 @@ const rows = [
 
 
 export default function BasicTable() {
-  const [location, setLocation] = React.useState("Punggol");
+  const [location, setLocation] = React.useState("Bishan");
+  const handleChange = (event) => {
+    setLocation(event.target.value);
+  };
   return (
     <Stack width="100%" spacing={10}>
-    <BasicSelect location = {location} setLocation = {setLocation}/>
+    <Select location = {location} handleChange = {handleChange}/>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
