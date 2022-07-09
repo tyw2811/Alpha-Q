@@ -1,31 +1,19 @@
-import React, { useState } from "react";
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { Typography, Stack } from '@mui/material';
+import ImageUploadThing from './ImageUploadThing';
+import { useAuthSession } from "../../providers/auth-session.provider";
 
-const UploadAndDisplayImage = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
 
-  return (
-    <div>
-      <h1>Upload and Display Image usign React Hook's</h1>
-      {selectedImage && (
-        <div>
-        <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-        <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
-        </div>
-      )}
-      <br />
-     
-      <br /> 
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      />
-    </div>
-  );
-};
+export default function TypographyTheme() {
+  return <Stack>
+    <Typography>HelpMe</Typography>
+    <ImageUploadThing></ImageUploadThing>
+    </Stack>;
 
-export default UploadAndDisplayImage;
+}
