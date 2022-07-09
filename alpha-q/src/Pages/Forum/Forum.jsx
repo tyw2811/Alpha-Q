@@ -12,15 +12,7 @@ export default function Forum() {
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
   const [posts, setPosts] = React.useState([]);
-  const [post, setPost] = React.useState([]);
 
-  const eg = {
-    title: "alpha q",
-    body: "pls let us win",
-    area: "hg",
-    pic: "null",
-    telegram: "@ywywyw",
-  }
 
   React.useEffect(() => {
     async function init() {
@@ -49,7 +41,7 @@ export default function Forum() {
       </Stack>
       <Stack width = "60%">
         <Stack spacing = {2}>
-          {posts.length !== 0 ? posts.map(post => <ForumBox forumPost = {post} setPost = {setPost}/>
+          {posts.length !== 0 ? posts.map(post => <ForumBox forumPost = {post}/>
           ) : <Typography>There are currently no posts!</Typography>}
         </Stack>
       </Stack>

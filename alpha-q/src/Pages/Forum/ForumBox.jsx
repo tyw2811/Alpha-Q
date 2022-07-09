@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Card, CardContent, Typography } from "@mui/material";
 
 export default function ForumBox(props) {
-  const { forumPost, setPost } = props;
+  const { forumPost } = props;
 
   const handleOpenPost = () => {
-    setPost([forumPost.title, forumPost.telegram]);
     window.location.href = `/forum/posts/${forumPost.title.replace(/\s+/g, '-') + "-" + forumPost.telegram}`;
   }
 

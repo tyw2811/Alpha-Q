@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { Typography, Stack } from '@mui/material';
 import GoogleMap from './GoogleMap'
 import Select from './Select'
+import {supabase} from "../../services/supabase.client";
 
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -19,11 +20,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 
-function DisableElevation() {
+function DisableElevation({post}) {
   const navigate = useNavigate();
   return (
     <Button size="small" variant="contained" disableElevation onClick={() => {
-      navigate("/forum");
+      navigate(`/forum/posts/${post.title.replace(/\s+/g, '-') + "-" + post.telegram}`);
     }}>
       Link to Post
     </Button>
@@ -43,6 +44,8 @@ function createData(postTitle, description, zipcode) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  
+
 
   return (
     <React.Fragment>
@@ -57,17 +60,17 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.postTitle}
+          {row.title}
         </TableCell>
-        <TableCell align="left">{row.description}</TableCell>
-        <TableCell align="right">{row.zipcode}</TableCell>
+        <TableCell align="left">{row.body}</TableCell>
+        <TableCell align="right">{"@" + row.telegram}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Stack display="flex" flex="1" width="7%" justifyContent="left">
-                <DisableElevation></DisableElevation>
+                <DisableElevation post = {row}/>
                 <Typography variant="h6" gutterBottom component="div">
                   Pictures
                 </Typography>
@@ -120,7 +123,22 @@ export default function BasicTable() {
   const handleChange = (event) => {
     setLocation(event.target.value);
   };
+
+  const [posts, setPosts] = React.useState([]);
+
+  React.useEffect(() => {
+    async function init() {
+      const { data, error } = await supabase
+       .from('posts')
+       .select();
+      if (error) throw error;
+      setPosts(data);
+    }
+
+    init();
+  }, [posts]);
   const area = foodData.find(a => a.area === location);
+
   return (
     <Stack width="100%" spacing={10}>
     <Select location = {location} handleChange = {handleChange}/>
@@ -131,13 +149,13 @@ export default function BasicTable() {
             <TableCell />
             <TableCell>Title</TableCell>
             <TableCell align="left">Description</TableCell>
-            <TableCell align="right">Zipcode</TableCell>
+            <TableCell align="right">Telegram handle</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {area.rows.map((row) => (
-            <Row key={row.postTitle} row={row} /> // should ideally filter out by zipcodes yknow based off the database or sth
-          ))}
+          {posts ? posts.filter(a => a.area === location) ? posts.filter(a => a.area === location).map((row) => (
+            <Row key={row.title} row={row} /> // should ideally filter out by zipcodes yknow based off the database or sth
+          )) : <></> : <></>}
         </TableBody>
       </Table>
     </TableContainer>
