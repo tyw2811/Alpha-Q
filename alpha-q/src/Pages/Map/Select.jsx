@@ -21,7 +21,7 @@ export default function BasicSelect({location, handleChange}) {
           <MenuItem value={"Hougang"}>Hougang</MenuItem>
           <MenuItem value={"Punggol"}>Punggol</MenuItem>
           <MenuItem value={"Redhill"}>Redhill</MenuItem>
-
+    
         </Select>
       </FormControl>
     </Box>

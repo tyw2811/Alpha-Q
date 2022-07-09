@@ -57,7 +57,7 @@ export default function MyComponent({location}) {
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={{lat: area.lat, lng: area.lng}}
         zoom={15}
         onUnmount={onUnmount}
 
