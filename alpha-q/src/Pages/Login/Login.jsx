@@ -83,7 +83,7 @@ export default function LoginDialog({ open, handleCloseDialog }) {
             color="primary"
             sx={{ fontWeight: "bold" }}
           >
-            ALPHA Q
+            Food Share
           </DialogContentText>
           <TextField
             id="email"
