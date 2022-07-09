@@ -6,8 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Typography, Stack } from '@mui/material';
 import GoogleMap from './GoogleMap'
 
 
@@ -29,9 +28,8 @@ const rows = [
 export default 
 function BasicTable() {
   return (
-    <Container>
+    <Stack width="100%" spacing={10}>
     <TableContainer component={Paper}>
-      <Typography>Map</Typography>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -61,7 +59,7 @@ function BasicTable() {
       </Table>
     </TableContainer>
     <GoogleMap></GoogleMap>
-    </Container>
+    </Stack>
     
 
   );
