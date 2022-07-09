@@ -16,7 +16,19 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 
+function DisableElevation() {
+  const navigate = useNavigate();
+  return (
+    <Button size="small" variant="contained" disableElevation onClick={() => {
+      navigate("/forum");
+    }}>
+      Link to Post
+    </Button>
+  );
+}
 
 
 function createData(postTitle, description, zipcode) {
@@ -24,12 +36,7 @@ function createData(postTitle, description, zipcode) {
     postTitle,
     description,
     zipcode,
-    pictures: [
-      {
-      },
-      {
-      },
-    ],
+
   };
 }
 
@@ -59,9 +66,12 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Pictures
-              </Typography>
+              <Stack display="flex" flex="1" width="3" justifyContent="left" >
+                <DisableElevation></DisableElevation>
+                <Typography variant="h6" gutterBottom component="div">
+                  Pictures
+                </Typography>
+              </Stack>
             </Box>
           </Collapse>
         </TableCell>
@@ -74,27 +84,27 @@ function Row(props) {
 
 
 const rows = [
-  createData('get rid of my garbage', "this food is gonna expire soon", 823661),
+  createData('get rid of my garbage', "this food is gonna expire soon", 823660),
   createData('very cheap chocolate', "fresh from my toilet", 547332),
-  createData('campbells', "circa 1956", 235211),
+  createData('campbells', "circa 1956", 566610),
+  createData('p', "de", 145211)
 ];
 
 const foodData = [{
   area: "Punggol",
-  lat: 1.4029897287723678,
-  lng: 103.91765866702444
+  rows: [createData('get rid of my garbage', "this food is gonna expire soon", 823660)]
 }, {
   area: "Hougang",
-  lat: 1.3715304982645449,
-  lng: 103.89272759746416
+  rows: [createData('very cheap chocolate', "fresh from my toilet", 547332)]
 }, {
   area: "Bishan",
-  lat: 1.3506460537972835,
-  lng: 103.84786212177235
+  rows: [createData('campbells', "circa 1956", 566610)]
 }, {
   area: "Redhill",
-  lat: 1.289291598245397,
-  lng: 103.81689648378763
+  rows: [
+    createData('p', "de", 145211),
+    createData('iss', "de", 145441)
+  ]
 }]
 
 
@@ -110,6 +120,7 @@ export default function BasicTable() {
   const handleChange = (event) => {
     setLocation(event.target.value);
   };
+  const area = foodData.find(a => a.area === location);
   return (
     <Stack width="100%" spacing={10}>
     <Select location = {location} handleChange = {handleChange}/>
@@ -124,8 +135,8 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.postTitle} row={row} />
+          {area.rows.map((row) => (
+            <Row key={row.postTitle} row={row} /> // should ideally filter out by zipcodes yknow based off the database or sth
           ))}
         </TableBody>
       </Table>
