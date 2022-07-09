@@ -3,8 +3,13 @@ import { Card, CardContent, Typography } from "@mui/material";
 
 export default function ForumBox(props) {
   const { forumPost } = props;
+
+  const handleOpenPost = () => {
+    window.location.href = `/forum/posts/${forumPost.title + "-" + forumPost.telegram}`;
+  }
+
   return (
-    <Card>
+    <Card onClick={handleOpenPost}>
       <CardContent sx={{ position: "relative", width: 340, height: 90 }}>
         <Typography variant="body2" position='relative' bottom='22%'>
           {forumPost.title}
