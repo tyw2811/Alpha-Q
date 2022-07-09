@@ -17,103 +17,44 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../../auth-session.provider";
 
-export default function LoginDialog({ open, handleClose }) {
-  const navigate = useNavigate();
-  const { handleSignin } = useAuthSession();
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [validateInput, setValidateInput] = useState("");
+export default function LoginDialog() {
+  const [open, setOpen] = useState(false);
 
-  // Enables responsive dialog box
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const handleCloseReset = () => {
-    setEmail("");
-    setPassword("");
-    setValidateInput("");
-    handleClose();
-  };
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    setLoading(true);
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    try {
-      await handleSignin({
-        email: data.get("email"),
-        password: data.get("password"),
-      });
-      handleCloseReset();
-      navigate("/roadmap");
-    } catch (error) {
-      console.error(error);
-      setValidateInput(error.message || "Error logging in");
-    } finally {
-      setLoading(false);
-    }
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
-      <Box component="form" onSubmit={handleSubmit}>
-        <DialogTitle>Login</DialogTitle>
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
-          <DialogContentText
-            variant="h3"
-            color="primary"
-            sx={{ fontWeight: "bold" }}
-          >
-            NUSMODDED
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We
+            will send updates occasionally.
           </DialogContentText>
           <TextField
-            id="email"
-            name="email"
-            label="Email"
-            type="email"
-            margin="dense"
             autoFocus
-            fullWidth
-            required
-            defaultValue={email}
-            onChange={handleEmailChange}
-          />
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
             margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
             fullWidth
-            required
-            defaultValue={password}
-            onChange={handlePasswordChange}
+            variant="standard"
           />
-          <Button size="small">Forgot password</Button>
-          <Collapse in={!!validateInput}>
-            <Alert severity="error">{validateInput}</Alert>
-          </Collapse>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" variant="contained" disabled={loading}>
-            Login
-          </Button>
-          <Button onClick={handleCloseReset}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
         </DialogActions>
-        {loading ? (
-          <LinearProgress />
-        ) : (
-          <LinearProgress variant="determinate" value={100} />
-        )}
-      </Box>
-    </Dialog>
+      </Dialog>
+    </div>
   );
 }
