@@ -6,11 +6,45 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Typography, Stack } from '@mui/material';
 import GoogleMap from './GoogleMap'
 
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
+
+
+
+function BasicSelect() {
+  const [location, setLocation] = React.useState('');
+
+  const handleChange = (event) => {
+    setLocation(event.target.value);
+  };
+
+  return (
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Locations</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={location}
+          label="Location"
+          onChange={handleChange}
+        >
+          <MenuItem value={"Punggol"}>Punggol</MenuItem>
+          <MenuItem value={"Hougang"}>Hougang</MenuItem>
+          <MenuItem value={"Redhill"}>Redhill</MenuItem>
+          <MenuItem value={"Bishan"}>Bishan</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  );
+}
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -29,9 +63,9 @@ const rows = [
 export default 
 function BasicTable() {
   return (
-    <Container>
+    <Stack width="100%" spacing={10}>
+    <BasicSelect></BasicSelect>
     <TableContainer component={Paper}>
-      <Typography>Map</Typography>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -61,7 +95,7 @@ function BasicTable() {
       </Table>
     </TableContainer>
     <GoogleMap></GoogleMap>
-    </Container>
+    </Stack>
     
 
   );
