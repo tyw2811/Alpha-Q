@@ -25,8 +25,8 @@ export default function PostPage(props) {
       setPosts(data);
 
     }
-
-    init();
+    if (posts.length===0)
+      init();
   }, [posts, telegram, title, selectedImage]);
 
   React.useEffect(() => {
@@ -39,7 +39,8 @@ export default function PostPage(props) {
       setSelectedImage(data);
     }
 
-    init();
+    if (!selectedImage)
+      init();
   }, [posts, telegram, title, selectedImage]);
 
   return (
