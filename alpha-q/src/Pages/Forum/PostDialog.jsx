@@ -17,13 +17,15 @@ import {
 } from "@mui/material";
 import { useAuthSession } from "../../providers/auth-session.provider";
 import Select from '../Map/Select'
+import ImageUpload from '../ImageUpload';
 
 
 export default function PostDialog({ open, handleCloseDialog }) {
-  const { handleSignin, postToForum } = useAuthSession();
+  const { uploadImage, postToForum } = useAuthSession();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [location, setLocation] = React.useState("Bishan");
   const handleChange = (event) => {
@@ -58,6 +60,7 @@ export default function PostDialog({ open, handleCloseDialog }) {
         body: data.get("body"),
         area: location,
       });
+      await uploadImage(data.get("title"), selectedImage);
       handleCloseReset();
     } catch (error) {
       console.error(error);
@@ -98,9 +101,10 @@ export default function PostDialog({ open, handleCloseDialog }) {
             defaultValue={body}
             onChange={handleBodyChange}
           />
-          <Stack marginTop={1}>
+          <Stack marginTop={1} marginBottom = {1}>
             <Select location = {location} handleChange = {handleChange}/>
           </Stack>
+          <ImageUpload selectedImage = {selectedImage} setSelectedImage = {setSelectedImage}/>
         </DialogContent>
         <DialogActions>
           <Button type="submit" variant="contained" disabled={loading}>
