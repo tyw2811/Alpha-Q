@@ -24,19 +24,22 @@ export default function PostPage(props) {
       if (error) throw error;
       setPosts(data);
 
-
-      const { data2, error2 } = await supabase
-        .storage
-        .from("public/post-images")
-        .download("abcd");
-
-        console.log(data2);
-
-      if (error2) throw error2;
-      setSelectedImage(data2);
     }
 
-    if(!posts || !selectedImage) init();
+    init();
+  }, [posts, telegram, title, selectedImage]);
+
+  React.useEffect(() => {
+    async function init() {
+      const { data, error } = await supabase
+      .storage
+      .from("public/post-images")
+      .download("abcd");
+      if (error) throw error;
+      setSelectedImage(data);
+    }
+
+    init();
   }, [posts, telegram, title, selectedImage]);
 
   return (
