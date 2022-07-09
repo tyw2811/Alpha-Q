@@ -93,7 +93,7 @@ export default function BasicTable() {
   }, [posts]);
 
   return (
-    <Stack width="100%" spacing={10}>
+    <Stack width="100%" spacing={4}>
     <Select location = {location} handleChange = {handleChange}/>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
