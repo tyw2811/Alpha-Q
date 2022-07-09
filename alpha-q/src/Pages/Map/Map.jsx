@@ -18,8 +18,7 @@ import Select from '@mui/material/Select';
 
 
 
-function BasicSelect() {
-  const [location, setLocation] = React.useState('');
+function BasicSelect({location, setLocation}) {
 
   const handleChange = (event) => {
     setLocation(event.target.value);
@@ -60,11 +59,11 @@ const rows = [
 
 
 
-export default 
-function BasicTable() {
+export default function BasicTable() {
+  const [location, setLocation] = React.useState("Punggol");
   return (
     <Stack width="100%" spacing={10}>
-    <BasicSelect></BasicSelect>
+    <BasicSelect location = {location} setLocation = {setLocation}/>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -94,7 +93,7 @@ function BasicTable() {
         </TableBody>
       </Table>
     </TableContainer>
-    <GoogleMap></GoogleMap>
+    <GoogleMap location = {location} />
     </Stack>
     
 

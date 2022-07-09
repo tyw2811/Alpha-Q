@@ -12,11 +12,22 @@ const center = {
 };
 
 
-function MyComponent() {
+
+
+export default function MyComponent({location}) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   })
+  const areas = [{
+    area: "Punggol",
+    lat: 1.4029897287723678,
+    lng: 103.91765866702444
+  }, {
+    area: "Hougang",
+    lat: 3.4029897287723678,
+    lng: 100.91765866702444
+  }]
 
   const [map, setMap] = React.useState(null)
 
@@ -33,6 +44,8 @@ function MyComponent() {
     setMap(null)
   }, [])
 
+  const area = areas.find(a => a.area === location);
+
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -42,9 +55,10 @@ function MyComponent() {
 
       >
         { /* Child components, such as markers, info windows, etc. */ }
-        <Marker position={{lat: 1.4029897287723678, lng: 103.91765866702444}}/>
+        {console.log(area)}
+        <Marker position={{lat: parseInt(area.lat), lng: parseInt(area.lng)}}/>
       </GoogleMap>
   ) : <></>
 }
 
-export default React.memo(MyComponent)
+//export default React.memo(MyComponent)
