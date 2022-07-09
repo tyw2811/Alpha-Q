@@ -1,3 +1,3 @@
-import ImageUpload from "./ImageUpload";
+import Image from "./ImageUploadThing";
 
-export default ImageUpload;
+export default Image;

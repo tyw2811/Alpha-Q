@@ -23,4 +23,4 @@ const UploadAndDisplayImage = ({selectedImage, setSelectedImage}) => {
   );
 };
 
-export default UploadAndDisplayImage;
+}
