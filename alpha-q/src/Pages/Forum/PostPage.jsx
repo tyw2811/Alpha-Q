@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Paper, Stack, Typography } from "@mui/material";
 import {supabase} from "../../services/supabase.client";
 import { useAuthSession } from "../../providers/auth-session.provider";
 
@@ -29,18 +29,23 @@ export default function PostPage(props) {
 
   return (
     post ?
-    <Card>
-      <CardContent sx={{ position: "relative", width: 340, height: 90 }}>
-        <Typography variant="body2" position='relative' bottom='22%'>
-          {post.title}
+    <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
+      <Paper variant = "outlined" height = "100px">
+        <Typography variant="h6">
+          By: {post.telegram}
         </Typography>
-        <Typography variant="h6" position='relative' bottom='26%'>
-          {post.body}
-        </Typography>
-        <Typography variant="caption" position='relative' bottom='20%' noWrap >
-          by: {post.telegram}
-        </Typography>
-      </CardContent>
-    </Card> : <></>
+      </Paper>
+      <Stack justifyContent = "top" width = "30%">
+        <Paper variant = "outlined" spacing = {4} alignItems= "center">
+          <Typography variant="h4">
+            {post.title}
+          </Typography>
+          <Typography variant="h5">
+            {post.body}
+          </Typography>
+        </Paper>
+      </Stack>
+    </Stack>  
+    : <></>
   );
 }
