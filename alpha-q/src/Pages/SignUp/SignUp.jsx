@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -8,25 +8,21 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { supabase } from "../../services/supabase.client";
+import { useAuthSession } from "../../auth-session.provider";
+import { useNavigate } from "react-router-dom";
 
-export default function SignUp({ handleNext }) {
+export default function SignUp() {
   const [validateInput, setValidateInput] = useState("");
   const [loading, setLoading] = useState(false);
   const emailCheck =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const passwordCheck = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+  const { handleSignup, isAuth } = useAuthSession();
+  const navigate = useNavigate();
 
-  const handleSignup = async ({ username, email, password }) => {
-    const { error } = await supabase.auth.signUp(
-      {
-        email,
-        password,
-      },
-      { data: { username } }
-    );
-    if (error) throw error;
-  };
+  useEffect(() => {
+    if (isAuth()) navigate("/forum");
+  }, [isAuth, navigate]);
 
 
   const handleSubmit = async (event) => {
@@ -44,8 +40,8 @@ export default function SignUp({ handleNext }) {
             password: data.get("password"),
           });
           setLoading(false);
+          navigate("/forum");
           console.log("successfully signed up!", user);
-          handleNext();
         } else if (data.get("password").length < 8) {
           setValidateInput("Password is too short! (minimum 8 characters)");
         } else if (

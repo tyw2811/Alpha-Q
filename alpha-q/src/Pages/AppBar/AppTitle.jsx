@@ -1,15 +1,13 @@
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function AppTitle({drawerOpen, onClick}) {
+export default function AppTitle() {
   const navigate = useNavigate();
   return (
     <>
       {({ toggleLanding }) => (
         <Button
           onClick={() => {
-            if(drawerOpen)
-              onClick();
             navigate("/");
             toggleLanding();
           }}
