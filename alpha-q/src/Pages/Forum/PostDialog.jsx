@@ -11,26 +11,18 @@ import {
   DialogActions,
   useMediaQuery,
   useTheme,
-  Collapse,
+  Stack,
   Alert,
   LinearProgress,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useAuthSession } from "../../auth-session.provider";
-import PropTypes from 'prop-types';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
-import Typography from '@mui/material/Typography';
+import { useAuthSession } from "../../providers/auth-session.provider";
+import { useForum } from "../../providers/forum.provider";
 import Select from '../Map/Select'
 
 
 export default function PostDialog({ open, handleCloseDialog }) {
-  const { handleSignin } = useAuthSession();
+  const { handleSignin, getUser } = useAuthSession();
+  const { postToForum } = useForum();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -63,9 +55,11 @@ export default function PostDialog({ open, handleCloseDialog }) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      await handleSignin({
-        email: data.get("email"),
-        password: data.get("password"),
+      await postToForum({
+        title: data.get("title"),
+        body: data.get("body"),
+        area: location,
+        user_id: getUser().id
       });
       handleCloseReset();
     } catch (error) {
@@ -84,7 +78,7 @@ export default function PostDialog({ open, handleCloseDialog }) {
             color="primary"
             sx={{ fontWeight: "bold" }}
           >
-            Create post
+            Create Post
           </DialogContentText>
           <TextField
             id="title"
@@ -107,11 +101,13 @@ export default function PostDialog({ open, handleCloseDialog }) {
             defaultValue={body}
             onChange={handleBodyChange}
           />
-          <Select location = {location} handleChange = {handleChange}/>
+          <Stack marginTop={1}>
+            <Select location = {location} handleChange = {handleChange}/>
+          </Stack>
         </DialogContent>
         <DialogActions>
           <Button type="submit" variant="contained" disabled={loading}>
-            Login
+            Post
           </Button>
           <Button onClick={handleCloseReset}>Cancel</Button>
         </DialogActions>

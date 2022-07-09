@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useAuthSession } from "../../auth-session.provider";
+import { useAuthSession } from "../../providers/auth-session.provider";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {

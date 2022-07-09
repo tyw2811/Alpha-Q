@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import {supabase} from "./services";
+import {supabase} from "../services/supabase.client";
 
 const AuthSessionContext = createContext({
   loading: false,
@@ -28,6 +28,10 @@ function AuthSessionProvider({ children }) {
   }, [aud, user]);
 
   const isAuth = useCallback(() => aud, [aud]);
+
+  const getUser = useCallback(async () => {
+    return user;
+  }, []);
 
   const handleSignup = async ({ username, email, password }) => {
     const { error } = await supabase.auth.signUp(
@@ -70,6 +74,7 @@ function AuthSessionProvider({ children }) {
     handleSignup,
     handleSignin,
     handleSignout,
+    getUser,
   };
 
   return (

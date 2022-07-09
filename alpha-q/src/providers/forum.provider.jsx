@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { useAuthSession } from "../auth-session.provider";
+import { useAuthSession } from "./auth-session.provider";
 import { supabase } from '../services/supabase.client'
 
 const ForumContext = createContext({
@@ -22,18 +22,16 @@ function ForumProvider({ children }) {
   const { isAuth } = useAuthSession();
   const [loading, setLoading] = useState(false);
  
-  const post = async (req, res) => {
-    const { title, body, area, telegram } = req.body;
-    
+  const postToForum = async (title, body, area, user_id) => {
     try {
       const { status } = await supabase
         .from('posts')
-        .insert({ 
+        .insert([{ 
           title: title,
           body: body,
           area: area,
-          telegram: telegram,
-        })
+          user_id: user_id,
+        }], { returning: 'minimal' })
         if (status !== 200) {
           throw new Error("Unable to post to forum");
         }
@@ -43,7 +41,7 @@ function ForumProvider({ children }) {
   }
 
   const values = {
-    post,
+    postToForum,
   };
 
   return (

@@ -16,7 +16,7 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuthSession } from "../../auth-session.provider";
+import { useAuthSession } from "../../providers/auth-session.provider";
 import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';

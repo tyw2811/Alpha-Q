@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthSession } from "../../auth-session.provider";
+import { useAuthSession } from "../../providers";
 import LoginDialog from "../Login/Login";
 
 
