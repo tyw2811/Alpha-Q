@@ -1,5 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import img1 from "../../images/Home.jpg";
 
 export default function Landing() {
   const navigate = useNavigate();
