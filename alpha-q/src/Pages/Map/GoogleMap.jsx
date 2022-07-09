@@ -25,8 +25,16 @@ export default function MyComponent({location}) {
     lng: 103.91765866702444
   }, {
     area: "Hougang",
-    lat: 3.4029897287723678,
-    lng: 100.91765866702444
+    lat: 1.3715304982645449,
+    lng: 103.89272759746416
+  }, {
+    area: "Bishan",
+    lat: 1.3506460537972835,
+    lng: 103.84786212177235
+  }, {
+    area: "Redhill",
+    lat: 1.289291598245397,
+    lng: 103.81689648378763
   }]
 
   const [map, setMap] = React.useState(null)
@@ -56,7 +64,7 @@ export default function MyComponent({location}) {
       >
         { /* Child components, such as markers, info windows, etc. */ }
         {console.log(area)}
-        <Marker position={{lat: parseInt(area.lat), lng: parseInt(area.lng)}}/>
+        <Marker position={{lat: area.lat, lng: area.lng}}/>
       </GoogleMap>
   ) : <></>
 }

@@ -35,10 +35,11 @@ function BasicSelect({location, setLocation}) {
           label="Location"
           onChange={handleChange}
         >
-          <MenuItem value={"Punggol"}>Punggol</MenuItem>
-          <MenuItem value={"Hougang"}>Hougang</MenuItem>
-          <MenuItem value={"Redhill"}>Redhill</MenuItem>
           <MenuItem value={"Bishan"}>Bishan</MenuItem>
+          <MenuItem value={"Hougang"}>Hougang</MenuItem>
+          <MenuItem value={"Punggol"}>Punggol</MenuItem>
+          <MenuItem value={"Redhill"}>Redhill</MenuItem>
+
         </Select>
       </FormControl>
     </Box>
