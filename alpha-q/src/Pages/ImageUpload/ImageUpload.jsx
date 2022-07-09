@@ -1,7 +1,7 @@
 import { Typography, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-const UploadAndDisplayImage = ({selectedImage, setSelectedImage}) => {
+export default function UploadAndDisplayImage({selectedImage, setSelectedImage}) {
 
   return (
     <>

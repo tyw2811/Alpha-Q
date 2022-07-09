@@ -6,6 +6,7 @@ import { useAuthSession } from "../../providers/auth-session.provider";
 export default function PostPage(props) {
   const { forumPost } = props;
   const [posts, setPosts] = React.useState([]);
+  const [selectedImage, setSelectedImage] = React.useState(null);
 
   const splithref = window.location.href.split("-");
   let title = [splithref[0].split("/")[splithref[0].split("/").length-1]];
@@ -22,13 +23,25 @@ export default function PostPage(props) {
        .select();
       if (error) throw error;
       setPosts(data);
+
+
+      const { data2, error2 } = await supabase
+        .storage
+        .from("public/post-images")
+        .download("abcd");
+
+        console.log(data2);
+
+      if (error2) throw error2;
+      setSelectedImage(data2);
     }
 
-    init();
-  }, [posts]);
+    if(!posts || !selectedImage) init();
+  }, [posts, telegram, title, selectedImage]);
 
   return (
-    post ?
+    <>
+    {post ?
     <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
       <Paper variant = "outlined" height = "100px">
         <Typography variant="h6">
@@ -46,6 +59,10 @@ export default function PostPage(props) {
         </Paper>
       </Stack>
     </Stack>  
-    : <></>
+    : <></>}
+    {selectedImage ? 
+    <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
+    : <>hi</>}
+    </>
   );
 }

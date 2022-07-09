@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useAuthSession } from "../../providers/auth-session.provider";
 import Select from '../Map/Select'
-import ImageUpload from '../ImageUpload';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 
 export default function PostDialog({ open, handleCloseDialog }) {
