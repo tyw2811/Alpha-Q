@@ -6,14 +6,6 @@ const containerStyle = {
   height: '400px'
 };
 
-const center = {
-  lat: 1.4029897287723678,
-  lng: 103.91765866702444
-};
-
-
-
-
 export default function MyComponent({location}) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -39,15 +31,6 @@ export default function MyComponent({location}) {
 
   const [map, setMap] = React.useState(null)
 
-
-  const onLoad = React.useCallback(function callback(map) {
-    console.log(map);
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    map.zoom = 14;
-    setMap(map)
-  }, [])
-
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
   }, [])
@@ -62,11 +45,7 @@ export default function MyComponent({location}) {
         onUnmount={onUnmount}
 
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        {console.log(area)}
         <Marker position={{lat: area.lat, lng: area.lng}}/>
       </GoogleMap>
   ) : <></>
 }
-
-//export default React.memo(MyComponent)

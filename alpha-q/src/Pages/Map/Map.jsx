@@ -42,7 +42,7 @@ function createData(postTitle, description, zipcode) {
 }
 
 function Row(props) {
-  const { row } = props;
+  const { post } = props;
   const [open, setOpen] = React.useState(false);
   
 
@@ -60,17 +60,17 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.title}
+          {post.title}
         </TableCell>
-        <TableCell align="left">{row.body}</TableCell>
-        <TableCell align="right">{"@" + row.telegram}</TableCell>
+        <TableCell align="left">{post.body}</TableCell>
+        <TableCell align="right">{"@" + post.telegram}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Stack display="flex" flex="1" width="7%" justifyContent="left">
-                <DisableElevation post = {row}/>
+                <DisableElevation post = {post}/>
                 <Typography variant="h6" gutterBottom component="div">
                   Pictures
                 </Typography>
@@ -82,42 +82,6 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
-
-
-
-const rows = [
-  createData('get rid of my garbage', "this food is gonna expire soon", 823660),
-  createData('very cheap chocolate', "fresh from my toilet", 547332),
-  createData('campbells', "circa 1956", 566610),
-  createData('p', "de", 145211)
-];
-
-const foodData = [{
-  area: "Punggol",
-  rows: [createData('get rid of my garbage', "this food is gonna expire soon", 823660)]
-}, {
-  area: "Hougang",
-  rows: [createData('very cheap chocolate', "fresh from my toilet", 547332)]
-}, {
-  area: "Bishan",
-  rows: [createData('campbells', "circa 1956", 566610)]
-}, {
-  area: "Redhill",
-  rows: [
-    createData('p', "de", 145211),
-    createData('iss', "de", 145441)
-  ]
-}]
-
-
-
-
-
-
-
-
-
 export default function BasicTable() {
   const [location, setLocation] = React.useState("Bishan");
   const handleChange = (event) => {
@@ -137,7 +101,6 @@ export default function BasicTable() {
 
     init();
   }, [posts]);
-  const area = foodData.find(a => a.area === location);
 
   return (
     <Stack width="100%" spacing={10}>
@@ -153,19 +116,13 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {posts ? posts.filter(a => a.area === location) ? posts.filter(a => a.area === location).map((row) => (
-            <Row key={row.title} row={row} /> // should ideally filter out by zipcodes yknow based off the database or sth
+          {posts ? posts.filter(a => a.area === location) ? posts.filter(a => a.area === location).map((post) => (
+            <Row key={post.title} post={post} /> // should ideally filter out by zipcodes yknow based off the database or sth
           )) : <></> : <></>}
         </TableBody>
       </Table>
     </TableContainer>
     <GoogleMap location = {location} />
     </Stack>
-    
-
   );
-
-  
-
-
 }
