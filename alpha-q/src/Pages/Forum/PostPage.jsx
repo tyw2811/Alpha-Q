@@ -34,7 +34,7 @@ export default function PostPage(props) {
       const { data, error } = await supabase
       .storage
       .from("public/post-images")
-      .download("abcd");
+      .download(title + "-" + telegram);
       if (error) throw error;
       setSelectedImage(data);
     }
