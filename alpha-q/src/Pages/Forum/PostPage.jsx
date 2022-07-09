@@ -43,32 +43,28 @@ export default function PostPage(props) {
   }, [posts, telegram, title, selectedImage]);
 
   return (
-    <>
-    {post ?
-    <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
-      <Paper variant = "outlined" height = "100px">
-        <Typography variant="h6">
-          Author: @{post.telegram}
-        </Typography>
-      </Paper>
-      <Stack justifyContent = "top" width = "30%" spacing = {4}>
-          <Typography variant="h3">
-            {post.title}
+    post ?
+      <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
+        <Paper variant = "outlined" height = "100px">
+          <Typography variant="h6">
+            Author: @{post.telegram}
           </Typography>
-          <Stack spacing = {0.5}>
-            <Typography variant="h5">
-              Description:
+        </Paper>
+        <Stack justifyContent = "top" width = "30%" spacing = {4}>
+            <Typography variant="h3">
+              {post.title}
             </Typography>
-            <Typography variant="h6">
-              {post.body}
-            </Typography>
-          </Stack>
-      </Stack>
-    </Stack>  
-    : <></>}
-    {selectedImage ? 
-    <img alt="not fount" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-    : <>hi</>}
-    </>
+            <Stack spacing = {0.5}>
+              <Typography variant="h5">
+                Description:
+              </Typography>
+              <Typography variant="h6">
+                {post.body}
+              </Typography>
+              <img alt="not fount" width={"350px"} src={URL.createObjectURL(selectedImage)} />
+            </Stack>
+        </Stack>
+      </Stack>  
+    : <></>
   );
 }
