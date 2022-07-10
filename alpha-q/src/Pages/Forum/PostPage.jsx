@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Card, CardContent, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Button, Card, CardContent, Grid, Paper, Stack, Typography } from "@mui/material";
 import {supabase} from "../../services/supabase.client";
 import { useAuthSession } from "../../providers/auth-session.provider";
+import { useNavigate } from "react-router-dom";
 
-export default function PostPage(props) {
-  const { forumPost } = props;
+export default function PostPage() {
+  const { checkUser, deletePost, deleteImage } = useAuthSession();
   const [posts, setPosts] = React.useState([]);
   const [selectedImage, setSelectedImage] = React.useState(null);
+  const navigate = useNavigate();
 
   const splithref = window.location.href.split("-");
-  let title = [splithref[0].split("/")[splithref[0].split("/").length-1]];
+  let title = React.useMemo(() => [splithref[0].split("/")[splithref[0].split("/").length-1]], []);
   title = title.concat(splithref.slice(1, splithref.length - 1));
   title = title.join(" ");
   const telegram = splithref[splithref.length - 1];
@@ -43,6 +45,16 @@ export default function PostPage(props) {
       init();
   }, [posts, telegram, title, selectedImage]);
 
+  const handleDelete = () => {
+    deletePost({
+      title: title,
+      body: post.body,
+      area: post.area,
+    });
+    deleteImage(title);
+    navigate("/forum");
+  }
+
   return (
     post ?
       <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
@@ -51,6 +63,7 @@ export default function PostPage(props) {
             Author: @{post.telegram}
           </Typography>
         </Paper>
+        {checkUser(telegram) ? <Button variant="contained" onClick = {handleDelete}>Delete</Button> : <></>}
         <Stack justifyContent = "top" width = "30%" spacing = {4}>
             <Typography variant="h3">
               {post.title}

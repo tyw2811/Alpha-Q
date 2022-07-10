@@ -132,6 +132,34 @@ function AuthSessionProvider({ children }) {
     return true;
   }, []);
 
+  const deletePost = useCallback(async (input) => {
+    const { data, error } = await supabase
+      .from("posts")
+      .delete()
+      .match({
+        title: input.title,
+        body: input.body,
+        area: input.area,
+      });
+    if (error) throw error;
+
+    return data;
+  }, []);
+
+  const deleteImage = useCallback(async (name) => {
+    const { data, error } = await supabase
+      .storage
+      .from("post-images")
+      .remove([name + "-" + user.user_metadata.username]);
+    if (error) throw error;
+
+    return true;
+  }, []);
+  
+  const checkUser = useCallback((name) => {
+    return user.user_metadata.username === name;
+  }, []);
+
   useEffect(() => {
     async function init() {
       if (user) {
@@ -165,6 +193,9 @@ function AuthSessionProvider({ children }) {
     getUserId,
     postToForum,
     uploadImage,
+    checkUser,
+    deletePost,
+    deleteImage,
   };
 
   return (
