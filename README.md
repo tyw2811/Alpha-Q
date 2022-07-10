@@ -10,3 +10,7 @@ We designed and did this project for a hackathon called LifeHack, where the prom
 ## Testing
 
 You can test the app here at [here](https://alphaqlifehack.vercel.app/).
+
+## Bugs
+
+On the forum page, when each post is clicked, it requires a reload of the page once to load the post.
