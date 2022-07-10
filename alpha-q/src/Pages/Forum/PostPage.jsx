@@ -58,9 +58,9 @@ export default function PostPage() {
   return (
     post ?
       <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
-        <Stack spacing = {4}>
+        <Stack spacing = {3}>
           <Paper variant = "outlined" height = "100px">
-            <Typography variant="h6">
+            <Typography variant="h6" padding={1}>
               Author: @{post.telegram}
             </Typography>
           </Paper>
