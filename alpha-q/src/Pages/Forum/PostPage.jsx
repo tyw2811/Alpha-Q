@@ -58,26 +58,28 @@ export default function PostPage() {
   return (
     post ?
       <Stack direction = "row" justifyContent = "center" spacing = {4} width = "100%" alignItems = "flex-start">
-        <Paper variant = "outlined" height = "100px">
-          <Typography variant="h6">
-            Author: @{post.telegram}
-          </Typography>
-        </Paper>
-        {checkUser(telegram) ? <Button variant="contained" onClick = {handleDelete}>Delete</Button> : <></>}
-        <Stack justifyContent = "top" width = "30%" spacing = {4}>
-            <Typography variant="h3">
-              {post.title}
+        <Stack spacing = {4}>
+          <Paper variant = "outlined" height = "100px">
+            <Typography variant="h6">
+              Author: @{post.telegram}
             </Typography>
-            <Stack spacing = {0.5}>
-              <Typography variant="h5">
-                Description:
-              </Typography>
-              <Typography variant="h6">
-                {post.body}
-              </Typography>
-              <img alt="not fount" width={"350px"} src={URL.createObjectURL(selectedImage)} />
-            </Stack>
+          </Paper>
+          {checkUser(telegram) ? <Button variant="contained" onClick = {handleDelete}>Delete</Button> : <></>}
         </Stack>
+          <Stack justifyContent = "top" width = "30%" spacing = {4}>
+              <Typography variant="h3">
+                {post.title}
+              </Typography>
+              <Stack spacing = {0.5}>
+                <Typography variant="h5">
+                  Description:
+                </Typography>
+                <Typography variant="h6">
+                  {post.body}
+                </Typography>
+                <img alt="not fount" width={"350px"} src={URL.createObjectURL(selectedImage)} />
+              </Stack>
+          </Stack>
       </Stack>  
     : <></>
   );
